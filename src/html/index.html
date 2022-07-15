@@ -4,26 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ejercicio de evaluación: Buscador de animes</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="./assets/css/main.css" />
     <link rel="icon" href="./assets/images/favicon.png" />
   </head>
 
   <body>
-
-    <h1>Buscador de series de anime</h1>
+    <header class="header">
+    <h1 class="header__title">Buscador de series de anime</h1>
     <form>
       <input class="js_text_input" type="text" name="title" id="title" placeholder="p. ej., Bleach">
       <button class="js_search_btn">Buscar</button>
       <button class="js_reset_btn">Reset</button>
     </form>
-
-    <section>
-      <ul class="js_ul_list"></ul>
-    </section>
+    </header>
+    <main>
+      <div class="wrapper">
+      <aside class="favourites">
+        <h2 class="favourites__title">Favoritos</h2>
+      </aside>
+      <aside class="results">
+        <h2 class="results__title">Resultados</h2>
+      <ul class="js_ul_list list"></ul>
+    </aside>
+  </div>
+    </main>
     
     <script src="./assets/js/main.js"></script>
   </body>

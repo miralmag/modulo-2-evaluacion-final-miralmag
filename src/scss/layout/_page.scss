@@ -1,7 +1,63 @@
 body {
   padding: 2rem;
   height: 100vh;
-  background-image: url('../images/bg-adalab.png');
-  background-color: $color-bg;
-  font-family: $font-main;
+  background: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.3)), url('https://i.pinimg.com/originals/93/e3/fb/93e3fb501ed86c7d0f2b22f9d2ae6861.jpg');
+  background-size: cover;
+}
+
+.header{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  gap: 30px;
+
+  &__title{
+  padding: 10px;
+  background-color: white;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  width: 500px;
+  align-self: center;
+  border-radius: 20px;
+}
+}
+.wrapper{
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  gap: 200px;
+}
+.favourites{
+  background-color: white;
+  width: 20vw;
+  text-align: center;
+  height: auto;
+  border-radius: 20px;
+
+  &__title{
+    font-size: 24px;
+    margin: 20px;
+  }
+}
+
+.results{
+  background-color: white;
+  width: 60vw;
+  text-align: center;
+  height: auto;
+  border-radius: 20px;
+  
+
+  &__title{
+    font-size: 24px;
+    margin: 20px;
+  }
+}
+
+.list{
+display: flex;
+flex-wrap: wrap;
+gap: 30px;
+margin: 30px;
 }
