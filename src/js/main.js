@@ -10,6 +10,14 @@ let animeList = [];
 
 // Funciones
 
+function renderAnimes(){
+    let html = '';
+    for (const eachAnime of animeList) {
+    html += `<li><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
+}
+ulAnimes.innerHTML = html;
+}
+
 function handleClick(event) {
 event.preventDefault();
 const textInputValue = textInput.value;
@@ -17,7 +25,7 @@ fetch (`https://api.jikan.moe/v4/anime?q=${textInputValue}`)
 .then ((response) => response.json())
 .then ((data) => {
     animeList = data.data;
-    ulAnimes.innerHTML = `<li><img src=${animeList[0].images.jpg.image_url}><h3>${animeList[1].title}</h3></li>`;
+    renderAnimes();
 })
 }
 // Eventos
