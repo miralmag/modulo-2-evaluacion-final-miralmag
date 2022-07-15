@@ -13,9 +13,12 @@ let animeList = [];
 function renderAnimes(){
     let html = '';
     for (const eachAnime of animeList) {
-    html += `<li><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
-}
-ulAnimes.innerHTML = html;
+        if (eachAnime.images.jpg.image_url !== "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png") {html += `<li><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
+        } else {
+        html += `<li><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
+        }
+    ulAnimes.innerHTML = html;
+    }
 }
 
 function handleClick(event) {
@@ -28,6 +31,7 @@ fetch (`https://api.jikan.moe/v4/anime?q=${textInputValue}`)
     renderAnimes();
 })
 }
+
 // Eventos
 
 searchButton.addEventListener('click', handleClick);
