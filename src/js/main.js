@@ -35,8 +35,9 @@ function handleClickFavourites(event){
     favouriteAnimeList.push(animeSelected);
   } else {favouriteAnimeList.splice(favouriteAnimeSelected, 1);
   }
-  renderAnimes();
+  localStorage.setItem('data', JSON.stringify(favouriteAnimeList));
   renderFavourites();
+  renderAnimes();
   listenerFavourites();
 }
 
@@ -50,16 +51,17 @@ function listenerFavourites() {
 function renderAnimes(){
   let html = '';
   let favouriteClass = '';
-  for (const eachAnime of animeList) {
+  for (const eachFavAnime of favouriteAnimeList) {
 
-    const selectedIndex = favouriteAnimeList.findIndex((fav) => eachAnime.id === fav.id);
+    const selectedIndex = favouriteAnimeList.findIndex((fav) => eachFavAnime.id === fav.id);
 
-    if (selectedIndex !== -1){
-      favouriteClass = 'favourite_clicked';
-    } else {
+    if (selectedIndex === -1){
       favouriteClass = '';
-    }
+    } else {
+      favouriteClass = 'favourite_clicked';
+    }}
 
+    for (const eachAnime of animeList) {
     if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item ${favouriteClass}" id="${eachAnime.mal_id}"><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
     } else {
       html += `<li class="js_anime_item ${favouriteClass}" id="${eachAnime.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
