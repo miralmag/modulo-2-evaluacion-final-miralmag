@@ -57,8 +57,9 @@ body {
 }
 
 .list{
-display: flex;
-flex-wrap: wrap;
-gap: 30px;
 margin: 30px;
+}
+
+.favourite_clicked{
+border: solid 3px red;
 }

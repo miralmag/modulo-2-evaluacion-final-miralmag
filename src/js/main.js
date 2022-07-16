@@ -10,6 +10,7 @@ const ulFavouriteAnimes = document.querySelector('.js_favourites_list');
 let animeList = [];
 let favouriteAnimeList = [];
 
+
 // Funciones
 
 function renderFavourites() {
@@ -25,8 +26,8 @@ function renderFavourites() {
 
 
 function handleClickFavourites(event){
-  const selectedId = parseInt(event.currentTarget.id);
 
+  const selectedId = parseInt(event.currentTarget.id);
   const animeSelected = animeList.find((anime) => anime.mal_id === selectedId);
   const favouriteAnimeSelected = favouriteAnimeList.findIndex((fav) => fav.mal_id === selectedId);
 
@@ -34,7 +35,7 @@ function handleClickFavourites(event){
     favouriteAnimeList.push(animeSelected);
   } else {favouriteAnimeList.splice(favouriteAnimeSelected, 1);
   }
-  console.log(favouriteAnimeList);
+  renderAnimes();
   renderFavourites();
   listenerFavourites();
 }
@@ -48,10 +49,20 @@ function listenerFavourites() {
 
 function renderAnimes(){
   let html = '';
+  let favouriteClass = '';
   for (const eachAnime of animeList) {
-    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item" id="${eachAnime.mal_id}"><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
+
+    const selectedIndex = favouriteAnimeList.findIndex((fav) => eachAnime.id === fav.id);
+
+    if (selectedIndex !== -1){
+      favouriteClass = 'favourite_clicked';
     } else {
-      html += `<li class="js_anime_item" id="${eachAnime.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
+      favouriteClass = '';
+    }
+
+    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item ${favouriteClass}" id="${eachAnime.mal_id}"><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
+    } else {
+      html += `<li class="js_anime_item ${favouriteClass}" id="${eachAnime.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
     }
     ulAnimes.innerHTML = html;
   }
