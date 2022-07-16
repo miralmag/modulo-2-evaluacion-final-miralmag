@@ -1,7 +1,7 @@
 body {
   padding: 2rem;
   height: 100vh;
-  background: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.3)), url('https://i.pinimg.com/originals/93/e3/fb/93e3fb501ed86c7d0f2b22f9d2ae6861.jpg');
+  background-image: url("https://i.pinimg.com/originals/93/e3/fb/93e3fb501ed86c7d0f2b22f9d2ae6861.jpg");
   background-size: cover;
   
 }
@@ -39,6 +39,10 @@ body {
   &__title{
     font-size: 24px;
     margin: 20px;
+  }
+
+  &__resetbutton{
+    margin: 30px;
   }
 }
 

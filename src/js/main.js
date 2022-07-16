@@ -7,6 +7,7 @@ const searchButton = document.querySelector('.js_search_btn');
 const resetButton = document.querySelector('.js_reset_btn');
 const ulAnimes = document.querySelector('.js_ul_list');
 const ulFavouriteAnimes = document.querySelector('.js_favourites_list');
+const resetAllFav = document.querySelector('.js_reset_allfav');
 let animeList = [];
 let favouriteAnimeList = [];
 
@@ -50,28 +51,28 @@ function listenerFavourites() {
 
 function renderAnimes(){
   let html = '';
-  let favouriteClass = '';
-  for (const eachFavAnime of favouriteAnimeList) {
+  // let favouriteClass = '';
+  // for (const eachFavAnime of favouriteAnimeList) {
 
-    const selectedIndex = favouriteAnimeList.findIndex((fav) => eachFavAnime.id === fav.id);
+  //   const selectedIndex = favouriteAnimeList.findIndex((fav) => eachFavAnime.id === fav.id);
 
-    if (selectedIndex === -1){
-      favouriteClass = '';
+  //   if (selectedIndex === -1){
+  //     favouriteClass = '';
+  //   } else {
+  //     favouriteClass = 'favourite_clicked';
+  //   }}
+
+  for (const eachAnime of animeList) {
+    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item" id="${eachAnime.mal_id}"><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
     } else {
-      favouriteClass = 'favourite_clicked';
-    }}
-
-    for (const eachAnime of animeList) {
-    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item ${favouriteClass}" id="${eachAnime.mal_id}"><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
-    } else {
-      html += `<li class="js_anime_item ${favouriteClass}" id="${eachAnime.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
+      html += `<li class="js_anime_item" id="${eachAnime.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
     }
     ulAnimes.innerHTML = html;
   }
   listenerFavourites();
 }
 
-function handleClick(event) {
+function handleSearch(event) {
   event.preventDefault();
   const textInputValue = textInput.value;
   fetch (`https://api.jikan.moe/v4/anime?q=${textInputValue}`)
@@ -82,9 +83,25 @@ function handleClick(event) {
     });
 }
 
+function handleReset(event){
+  event.preventDefault;
+  animeList = [];
+  renderAnimes();
+}
+
+function handleResetAllFav(event) {
+  event.preventDefault;
+  favouriteAnimeList = [];
+  let html = '';
+  ulFavouriteAnimes.innerHTML = html;
+  localStorage.removeItem('data');
+}
+
 // Eventos
 
-searchButton.addEventListener('click', handleClick);
+searchButton.addEventListener('click', handleSearch);
+resetButton.addEventListener('click', handleReset);
+resetAllFav.addEventListener('click', handleResetAllFav);
 
 // Acciones al cargar la página
 
