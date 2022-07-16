@@ -87,3 +87,12 @@ function handleClick(event) {
 searchButton.addEventListener('click', handleClick);
 
 // Acciones al cargar la página
+
+function onLoad() {
+  const dataLocalStorage = JSON.parse(localStorage.getItem('data'));
+  if (dataLocalStorage) {
+    favouriteAnimeList = dataLocalStorage;
+    renderFavourites();
+  }
+}
+onLoad();
