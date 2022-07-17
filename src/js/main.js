@@ -8,26 +8,30 @@ const resetButton = document.querySelector('.js_reset_btn');
 const ulAnimes = document.querySelector('.js_ul_list');
 const ulFavouriteAnimes = document.querySelector('.js_favourites_list');
 const resetAllFav = document.querySelector('.js_reset_allfav');
+
+// Arrays
+
 let animeList = [];
 let favouriteAnimeList = [];
 
 
-// Funciones
+// FUNCIONES
 
+//Función que pinta la lista de favoritos
 function renderFavourites() {
   let html = '';
   for (const eachfav of favouriteAnimeList) {
-    if (eachfav.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item" id="${eachfav.mal_id}"><img src=${eachfav.images.jpg.image_url}><h3>${eachfav.title}</h3></li>`;
+    if (eachfav.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item item" id="${eachfav.mal_id}"><img class="item-image" src=${eachfav.images.jpg.image_url}><h3 class="item-title">${eachfav.title}</h3></li>`;
     } else {
-      html += `<li class="js_anime_item" id="${eachfav.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachfav.title}</h3></li>`;
+      html += `<li class="js_anime_item item" id="${eachfav.mal_id}"><img class="item-image" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3 class="item-title">${eachfav.title}</h3></li>`;
     }
     ulFavouriteAnimes.innerHTML = html;
   }
 }
 
-
+//Función manejadora del clic en los animes favoritos
 function handleClickFavourites(event){
-
+  const selected = event.currentTarget;
   const selectedId = parseInt(event.currentTarget.id);
   const animeSelected = animeList.find((anime) => anime.mal_id === selectedId);
   const favouriteAnimeSelected = favouriteAnimeList.findIndex((fav) => fav.mal_id === selectedId);
@@ -36,12 +40,15 @@ function handleClickFavourites(event){
     favouriteAnimeList.push(animeSelected);
   } else {favouriteAnimeList.splice(favouriteAnimeSelected, 1);
   }
+
+  selected.classList.toggle('fav_clicked');
+
   localStorage.setItem('data', JSON.stringify(favouriteAnimeList));
   renderFavourites();
-  renderAnimes();
   listenerFavourites();
 }
 
+//Función escuchadora
 function listenerFavourites() {
   const animeItems = document.querySelectorAll('.js_anime_item');
   for (const oneItem of animeItems) {
@@ -49,29 +56,20 @@ function listenerFavourites() {
   }
 }
 
+//Función para pintar la lista de resultados
 function renderAnimes(){
+  ulAnimes.innerHTML = '';
   let html = '';
-  // let favouriteClass = '';
-  // for (const eachFavAnime of favouriteAnimeList) {
-
-  //   const selectedIndex = favouriteAnimeList.findIndex((fav) => eachFavAnime.id === fav.id);
-
-  //   if (selectedIndex === -1){
-  //     favouriteClass = '';
-  //   } else {
-  //     favouriteClass = 'favourite_clicked';
-  //   }}
-
-  for (const eachAnime of animeList) {
-    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item" id="${eachAnime.mal_id}"><img src=${eachAnime.images.jpg.image_url}><h3>${eachAnime.title}</h3></li>`;
+  for (const eachAnime of animeList){
+    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item item" id="${eachAnime.mal_id}"><img class="item-image" src=${eachAnime.images.jpg.image_url}><h3 class="item-title">${eachAnime.title}</h3></li>`;
     } else {
-      html += `<li class="js_anime_item" id="${eachAnime.mal_id}"><img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3>${eachAnime.title}</h3></li>`;
-    }
-    ulAnimes.innerHTML = html;
-  }
+      html += `<li class="js_anime_item item" id="${eachAnime.mal_id}"><img class="item-image" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3 class="item-title">${eachAnime.title}</h3></li>`;
+    }}
+  ulAnimes.innerHTML = html;
   listenerFavourites();
 }
 
+//Función manejadora del clic en Buscar
 function handleSearch(event) {
   event.preventDefault();
   const textInputValue = textInput.value;

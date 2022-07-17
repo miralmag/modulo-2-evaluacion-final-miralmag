@@ -1,9 +1,8 @@
 body {
   padding: 2rem;
   height: 100vh;
-  background-image: url("https://i.pinimg.com/originals/93/e3/fb/93e3fb501ed86c7d0f2b22f9d2ae6861.jpg");
-  background-size: cover;
-  
+  background-image: url("../../assets/images/akatsuki.png");
+  background-size: auto;
 }
 
 .header{
@@ -22,6 +21,11 @@ body {
   align-self: center;
   border-radius: 20px;
 }
+  &__input{
+    font-size: 18px;
+    padding: 5px;
+    margin-right: 20px;
+  }
 }
 .wrapper{
   margin-top: 50px;
@@ -29,8 +33,10 @@ body {
   justify-content: space-around;
   gap: 200px;
 }
+
 .favourites{
-  background-color: white;
+  background: white;
+  opacity: 0.8;
   width: 35vw;
   text-align: center;
   height: auto;
@@ -39,31 +45,49 @@ body {
   &__title{
     font-size: 24px;
     margin: 20px;
+    font-weight: 600;
   }
 
   &__resetbutton{
+    margin: 30px;
+  }
+
+  &__list{
     margin: 30px;
   }
 }
 
 .results{
   background-color: white;
+  opacity: 0.8;
   width: 60vw;
   text-align: center;
   height: auto;
   border-radius: 20px;
-  
 
   &__title{
     font-size: 24px;
     margin: 20px;
+    font-weight: 600;
   }
+
+  &__list{
+    margin: 30px;
+    background-color: white ;
+    }
 }
 
-.list{
-margin: 30px;
+.item-image{
+  border-radius: 10px;
+  background-color: black;
+  
+
+}
+.item-title{
+padding: 5px;
+margin-bottom: 30px;
 }
 
-.favourite_clicked{
+.fav_clicked{
 border: solid 3px red;
 }
