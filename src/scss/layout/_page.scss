@@ -1,5 +1,4 @@
 body {
-  padding: 2rem;
   height: 100vh;
   background-image: url("../../assets/images/akatsuki.png");
   background-size: auto;
@@ -13,8 +12,11 @@ body {
   gap: 30px;
 
   &__title{
+  margin-top: 30px;
   padding: 10px;
   background-color: white;
+  color: #9B0511;
+  opacity: 0.8;
   font-family: 'Bebas Neue', cursive;
   font-size: 40px;
   width: 500px;
@@ -25,16 +27,36 @@ body {
     font-size: 18px;
     padding: 5px;
     margin-right: 20px;
+    border: solid 2px #9B0511;
+    font-family: 'Bebas Neue', cursive;
+  }
+
+  &__searchbtn, &__resetbtn{
+    background-color: #9B0511;
+    border: solid 1px #CBBEB5;
+    color: white;
+    font-family: 'Bebas Neue', cursive;
+    padding: 5px;
+
+    &:hover{
+      cursor: pointer;
+      color: #515151;
+      background-color: #d1b1b3
+     
+    }
   }
 }
 .wrapper{
-  margin-top: 50px;
+  margin: 50px 20px 20px 20px;
   display: flex;
   justify-content: space-around;
-  gap: 200px;
+  gap: 150px;
 }
 
 .favourites{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: white;
   opacity: 0.8;
   width: 35vw;
@@ -43,17 +65,32 @@ body {
   border-radius: 20px;
 
   &__title{
-    font-size: 24px;
-    margin: 20px;
-    font-weight: 600;
+    font-size: 30px;
+    color: #9B0511;
+    margin-top: 20px;
+    font-family: 'Bebas Neue', cursive;
   }
 
   &__resetbutton{
     margin: 30px;
+    background-color: #9B0511;
+    color: white;
+    border: #CBBEB5 solid 1px;
+    font-family: 'Bebas Neue', cursive;
+    padding: 5px;
+
+    &:hover{
+      cursor: pointer;
+      box-shadow: 0 0 8px #515151;
+    }
   }
 
   &__list{
     margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 35px;
   }
 }
 
@@ -64,30 +101,56 @@ body {
   text-align: center;
   height: auto;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &__title{
-    font-size: 24px;
-    margin: 20px;
-    font-weight: 600;
+    font-size: 30px;
+    color:#9B0511;
+    margin-top: 20px;
+    font-family: 'Bebas Neue', cursive;
   }
 
   &__list{
     margin: 30px;
-    background-color: white ;
+    background-color: white;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 35px;
     }
 }
 
+.item{
+max-width: 200px;
+padding: 20px;
+background-color:#d1b1b3;
+border-radius: 20px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+
+&:hover{
+cursor: pointer;
+box-shadow: 0 0 10px #515151;
+}
+}
+
 .item-image{
+  margin-top: 10px;
   border-radius: 10px;
+  max-height: 300px;
   background-color: black;
-  
 
 }
 .item-title{
-padding: 5px;
-margin-bottom: 30px;
+font-family: 'Bebas Neue', cursive;
+margin-top: 10px;
 }
 
 .fav_clicked{
-border: solid 3px red;
+border: solid 3px #15031b;
+background-color: #9B0511;
+color: white;
 }
