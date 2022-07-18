@@ -17,7 +17,7 @@ let favouriteAnimeList = [];
 
 // FUNCIONES
 
-//Función que pinta la lista de favoritos
+// Función que pinta la lista de favoritos
 function renderFavourites() {
   let html = '';
   for (const eachfav of favouriteAnimeList) {
@@ -29,7 +29,7 @@ function renderFavourites() {
   }
 }
 
-//Función manejadora del clic en los animes favoritos
+// Función manejadora del clic en los animes favoritos
 function handleClickFavourites(event){
   const selected = event.currentTarget;
   selected.classList.add('fav_clicked');
@@ -40,8 +40,8 @@ function handleClickFavourites(event){
 
   if (favouriteAnimeSelected === -1) {
     favouriteAnimeList.push(animeSelected);
-  } else {favouriteAnimeList.splice(favouriteAnimeSelected, 1);
-    selected.classList.remove('fav_clicked');
+  } else {;
+    favouriteAnimeList.splice(animeSelected, 1);
   }
 
   localStorage.setItem('data', JSON.stringify(favouriteAnimeList));
@@ -49,7 +49,7 @@ function handleClickFavourites(event){
   listenerFavourites();
 }
 
-//Función escuchadora (metemos el addEventListener en una función porque necesitamos recorrer el array)
+// Función escuchadora (metemos el addEventListener en una función porque necesitamos recorrer el array)
 function listenerFavourites() {
   const animeItems = document.querySelectorAll('.js_anime_item');
   for (const oneItem of animeItems) {
@@ -57,7 +57,7 @@ function listenerFavourites() {
   }
 }
 
-//Función para pintar la lista de resultados
+// Función para pintar la lista de resultados
 function renderAnimes(){
   ulAnimes.innerHTML = '';
   let html = '';
@@ -70,7 +70,7 @@ function renderAnimes(){
   listenerFavourites();
 }
 
-//Función manejadora del clic en Buscar
+// Función manejadora del clic en Buscar
 function handleSearch(event) {
   event.preventDefault();
   const textInputValue = textInput.value;
@@ -95,6 +95,7 @@ function handleResetAllFav(event) {
   ulFavouriteAnimes.innerHTML = html;
   localStorage.removeItem('data');
 }
+
 
 // Eventos
 
