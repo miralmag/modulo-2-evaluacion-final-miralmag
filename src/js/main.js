@@ -49,7 +49,7 @@ function handleClickFavourites(event){
   listenerFavourites();
 }
 
-//Función escuchadora
+//Función escuchadora (metemos el addEventListener en una función porque necesitamos recorrer el array)
 function listenerFavourites() {
   const animeItems = document.querySelectorAll('.js_anime_item');
   for (const oneItem of animeItems) {
