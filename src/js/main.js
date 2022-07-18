@@ -21,9 +21,9 @@ let favouriteAnimeList = [];
 function renderFavourites() {
   let html = '';
   for (const eachfav of favouriteAnimeList) {
-    if (eachfav.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item item" id="${eachfav.mal_id}"><img class="item-image" src=${eachfav.images.jpg.image_url}><h3 class="item-title">${eachfav.title}</h3></li>`;
+    if (eachfav.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item item" id="${eachfav.mal_id}"><img class="item-image" src=${eachfav.images.jpg.image_url}><h3 class="item-title">${eachfav.title}</h3><button class="reset_one js_reset_one"><i class="fa-solid fa-trash"></i></button></li>`;
     } else {
-      html += `<li class="js_anime_item item" id="${eachfav.mal_id}"><img class="item-image" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3 class="item-title">${eachfav.title}</h3></li>`;
+      html += `<li class="js_anime_item item" id="${eachfav.mal_id}"><img class="item-image" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3 class="item-title">${eachfav.title}</h3><button class="reset_one js_reset_one"><i class="fa-solid fa-trash"></i></button></li>`;
     }
     ulFavouriteAnimes.innerHTML = html;
   }
@@ -32,6 +32,8 @@ function renderFavourites() {
 //Función manejadora del clic en los animes favoritos
 function handleClickFavourites(event){
   const selected = event.currentTarget;
+  selected.classList.add('fav_clicked');
+  
   const selectedId = parseInt(event.currentTarget.id);
   const animeSelected = animeList.find((anime) => anime.mal_id === selectedId);
   const favouriteAnimeSelected = favouriteAnimeList.findIndex((fav) => fav.mal_id === selectedId);
@@ -39,9 +41,8 @@ function handleClickFavourites(event){
   if (favouriteAnimeSelected === -1) {
     favouriteAnimeList.push(animeSelected);
   } else {favouriteAnimeList.splice(favouriteAnimeSelected, 1);
+    selected.classList.remove('fav_clicked');
   }
-
-  selected.classList.toggle('fav_clicked');
 
   localStorage.setItem('data', JSON.stringify(favouriteAnimeList));
   renderFavourites();
