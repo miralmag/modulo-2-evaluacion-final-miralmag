@@ -32,7 +32,7 @@ function renderFavourites() {
 // Función manejadora del clic en los animes favoritos
 function handleClickFavourites(event){
   const selected = event.currentTarget;
-  selected.classList.add('fav_clicked');
+  
   
   const selectedId = parseInt(event.currentTarget.id);
   const animeSelected = animeList.find((anime) => anime.mal_id === selectedId);
@@ -40,8 +40,10 @@ function handleClickFavourites(event){
 
   if (favouriteAnimeSelected === -1) {
     favouriteAnimeList.push(animeSelected);
-  } else {;
-    favouriteAnimeList.splice(animeSelected, 1);
+    selected.classList.add('fav_clicked');
+  } else {
+    // favouriteAnimeList.splice(favouriteAnimeSelected, 1);
+    selected.classList.remove('fav_clicked');
   }
 
   localStorage.setItem('data', JSON.stringify(favouriteAnimeList));
