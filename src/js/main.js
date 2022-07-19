@@ -122,7 +122,7 @@ function handleResetAllFav(event) {
   localStorage.removeItem('data');
 }
 
-// Función manejadora del click en los botones de reset individuales
+// Función manejadora del click en los botones de reset individuales (no he conseguido que funcione, pero he dejado el botón porque al pulsar se activa el splice anterior que hicimos en handleClickFavourites)
 function handleClickResetOne (e) {
  e.preventDefault;
 //   const resetOneSelectedId = parseInt(e.currentTarget.id);
