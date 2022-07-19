@@ -11,43 +11,49 @@ const resetAllFav = document.querySelector('.js_reset_allfav');
 
 // Arrays
 
-let animeList = [];
-let favouriteAnimeList = [];
+let animes = [];
+let favourites = [];
 
 
 // FUNCIONES
 
 // Función que pinta la lista de favoritos
-function renderFavourites() {
+function renderFavourites(){
+  const badImg = "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png";
+  const placeholderImg = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV";
+  ulAnimes.innerHTML = '';
   let html = '';
-  for (const oneFav of favouriteAnimeList) {
-    if (oneFav.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item item" id="${oneFav.mal_id}"><img class="item-image" src=${oneFav.images.jpg.image_url}><h3 class="item-title">${oneFav.title}</h3><button class="reset_one js_reset_one"><i class="fa-solid fa-trash"></i></button></li>`;
+  for (const oneFav of favourites) {
+    html += `<li class="js_anime_item item fav_clicked__inlist" id="${oneFav.mal_id}">`;
+    if (oneFav.images.jpg.image_url === badImg) {
+      html += `<img class="item-image" src="${placeholderImg}">`;
     } else {
-      html += `<li class="js_anime_item item" id="${oneFav.mal_id}"><img class="item-image" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3 class="item-title">${oneFav.title}</h3><button class="reset_one js_reset_one"><i class="fa-solid fa-trash"></i></button></li>`;
+      html += `<img class="item-image" src="${oneFav.images.jpg.image_url}"}">`;
     }
-    ulFavouriteAnimes.innerHTML = html;
+    html += `<h3 class="item-title">${oneFav.title}</h3><button id="${oneFav.mal_id}" class="js_reset_one reset_one"><i class="fa-solid fa-trash-can"></i></button></li>`;
   }
+  ulFavouriteAnimes.innerHTML = html;
+  renderAnimes();
+  listenerFavourites();
+  listenersResetOne();
 }
 
 // Función manejadora del clic en los animes favoritos
-function handleClickFavourites(event){
-  const selected = event.currentTarget;
-  selected.classList.add('fav_clicked');
-  
-  const selectedId = parseInt(event.currentTarget.id);
-  const animeSelected = animeList.find((anime) => anime.id === selectedId);
-  const favouriteAnimeSelected = favouriteAnimeList.findIndex((fav) => fav.mal_id === selectedId);
+function handleClickFavourites(e) {
+
+  const selectedId = parseInt(e.currentTarget.id);
+  const animeSelected = animes.find((item) => item.mal_id === selectedId);
+  const favouriteAnimeSelected = favourites.findIndex((fav) => fav.mal_id === selectedId);
 
   if (favouriteAnimeSelected === -1) {
-    favouriteAnimeList.push(animeSelected);
-  } else {;
-    favouriteAnimeList.splice(animeSelected, 1);
+    favourites.push(animeSelected);
+  } else {favourites.splice(favouriteAnimeSelected, 1);
   }
 
-  localStorage.setItem('data', JSON.stringify(favouriteAnimeList));
+  localStorage.setItem ('data', JSON.stringify(favourites));
   renderFavourites();
-  listenerFavourites();
 }
+
 
 // Función escuchadora (metemos el addEventListener en una función porque necesitamos recorrer el array)
 function listenerFavourites() {
@@ -58,14 +64,32 @@ function listenerFavourites() {
 }
 
 // Función para pintar la lista de resultados
-function renderAnimes(){
+function renderAnimes() {
+  const badImg = "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png";
+  const placeholderImg = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV";
+
   ulAnimes.innerHTML = '';
   let html = '';
-  for (const eachAnime of animeList){
-    if (eachAnime.images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {html += `<li class="js_anime_item item" id="${eachAnime.mal_id}"><img class="item-image" src=${eachAnime.images.jpg.image_url}><h3 class="item-title">${eachAnime.title}</h3></li>`;
+  let favClass = '';
+  for (const oneAnime of animes) {
+
+    const favoriteFoundIndex = favourites.findIndex(
+      (fav) => oneAnime.mal_id === fav.mal_id
+    );
+    if (favoriteFoundIndex !== -1) {
+      favClass = '--clicked';
     } else {
-      html += `<li class="js_anime_item item" id="${eachAnime.mal_id}"><img class="item-image" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV"><h3 class="item-title">${eachAnime.title}</h3></li>`;
-    }}
+      favClass = '--search';
+    }
+
+    html += `<li class="js_anime_item item item${favClass}" id="${oneAnime.mal_id}">`;
+    if (oneAnime.images.jpg.image_url === badImg) {
+      html += `<img class="item-image" src="${placeholderImg}">`;
+    } else {
+      html += `<img class="item-image" src="${oneAnime.images.jpg.image_url}">`;
+    }
+    html += `<h3 class="item-title">${oneAnime.title}</h3></li>`;
+  }
   ulAnimes.innerHTML = html;
   listenerFavourites();
 }
@@ -77,24 +101,44 @@ function handleSearch(event) {
   fetch (`https://api.jikan.moe/v4/anime?q=${textInputValue}`)
     .then ((response) => response.json())
     .then ((data) => {
-      animeList = data.data;
+      animes = data.data;
       renderAnimes();
     });
 }
 
+// Función para resetear resultados
 function handleReset(event){
   event.preventDefault;
-  animeList = [];
+  animes = [];
   renderAnimes();
 }
 
+//Función para resetear favoritos y borrarlos de local
 function handleResetAllFav(event) {
   event.preventDefault;
-  favouriteAnimeList = [];
+  favourites = [];
   let html = '';
   ulFavouriteAnimes.innerHTML = html;
   localStorage.removeItem('data');
 }
+
+// Función manejadora del click en los botones de reset individuales
+function handleClickResetOne (e) {
+ e.preventDefault;
+//   const resetOneSelectedId = parseInt(e.currentTarget.id);
+//   const resetOneSelectedIndex = favourites.findIndex((fav) => fav.mal_id === resetOneSelectedId);
+
+//   favourites.splice(resetOneSelectedIndex, 1);
+  
+//   renderFavourites();
+}
+
+// Función escuchadora de los botones de reset individuales
+function listenersResetOne() {
+  const allResetOneButtons = document.querySelectorAll('.js_reset_one');
+  for (const resetOneButton of allResetOneButtons) {
+    resetOneButton.addEventListener('click', handleClickResetOne);
+  }}
 
 
 // Eventos
@@ -108,7 +152,7 @@ resetAllFav.addEventListener('click', handleResetAllFav);
 function onLoad() {
   const dataLocalStorage = JSON.parse(localStorage.getItem('data'));
   if (dataLocalStorage) {
-    favouriteAnimeList = dataLocalStorage;
+    favourites = dataLocalStorage;
     renderFavourites();
   }
 }

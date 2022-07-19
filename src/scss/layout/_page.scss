@@ -1,7 +1,16 @@
+$main-red: #9B0511;
+$main-grey: #515151;
+$background-fav: rgb(240, 224, 181);
+$black-border: #15031b;
+$background-results: #d1b1b3;
+$button-border: #CBBEB5;
+
+
 body {
   height: 100vh;
   background-image: url("../../assets/images/akatsuki.png");
   background-size: auto;
+  font-family: 'Bebas Neue', cursive;
 }
 
 .header{
@@ -15,9 +24,8 @@ body {
   margin-top: 30px;
   padding: 10px;
   background-color: white;
-  color: #9B0511;
+  color: $main-red;
   opacity: 0.8;
-  font-family: 'Bebas Neue', cursive;
   font-size: 40px;
   width: 500px;
   align-self: center;
@@ -27,21 +35,19 @@ body {
     font-size: 18px;
     padding: 5px;
     margin-right: 20px;
-    border: solid 2px #9B0511;
-    font-family: 'Bebas Neue', cursive;
+    border: solid 2px $main-red;
   }
 
   &__searchbtn, &__resetbtn{
-    background-color: #9B0511;
-    border: solid 1px #CBBEB5;
+    background-color: $main-red;
+    border: solid 1px $button-border;
     color: white;
-    font-family: 'Bebas Neue', cursive;
     padding: 5px;
 
     &:hover{
       cursor: pointer;
-      color: #515151;
-      background-color: #d1b1b3
+      color: $main-grey;
+      background-color: $background-results
      
     }
   }
@@ -66,24 +72,22 @@ body {
 
   &__title{
     font-size: 30px;
-    color: #9B0511;
+    color: $main-red;
     margin-top: 20px;
-    font-family: 'Bebas Neue', cursive;
   }
 
   &__resetbutton{
     margin: 30px;
-    background-color: #9B0511;
+    background-color: $main-red;
     color: white;
     border: #CBBEB5 solid 1px;
-    font-family: 'Bebas Neue', cursive;
     padding: 5px;
 
     &:hover{
       cursor: pointer;
-      box-shadow: 0 0 8px #515151;
+      box-shadow: 0 0 8px $main-grey;
       background-color: white;
-      color: #515151;
+      color: $main-grey;
     }
   }
 
@@ -109,9 +113,8 @@ body {
 
   &__title{
     font-size: 30px;
-    color:#9B0511;
+    color: $main-red;
     margin-top: 20px;
-    font-family: 'Bebas Neue', cursive;
   }
 
   &__list{
@@ -127,15 +130,23 @@ body {
 .item{
 max-width: 200px;
 padding: 20px;
-background-color:#d1b1b3;
 border-radius: 20px;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 
-&:hover{
-cursor: pointer;
-box-shadow: 0 0 10px #515151;
+&--search{
+  background-color:$background-results;
+ 
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px $main-grey;
+    }
+}
+&--clicked{
+  border: solid 2px $black-border;
+  background-color: $main-red;
+  color: white;
 }
 }
 
@@ -147,21 +158,19 @@ box-shadow: 0 0 10px #515151;
 
 }
 .item-title{
-font-family: 'Bebas Neue', cursive;
 margin-top: 10px;
 }
 
-.fav_clicked{
-border: solid 3px #15031b;
-background-color: #9B0511;
-color: white;
+.fav_clicked__inlist{
+  background-color: $background-fav;
 }
+
 
 .reset_one{
   border-radius: 50px;
-  border: solid 1px #9B0511;
-  background-color: #white;
-  color: #9B0511;
+  border: solid 1px $main-red;
+  background-color: white;
+  color: $main-red;
   padding: 5px;
   width: 30px;
   position: relative;
@@ -171,8 +180,8 @@ color: white;
 
   &:hover{
     cursor: pointer;
-    box-shadow: 0 0 10px #515151;
-    background-color: #9B0511;
+    box-shadow: 0 0 10px $main-grey;
+    background-color: $main-red;
     color: white;
   }
 }
