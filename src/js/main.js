@@ -8,6 +8,7 @@ const resetButton = document.querySelector('.js_reset_btn');
 const ulAnimes = document.querySelector('.js_ul_list');
 const ulFavouriteAnimes = document.querySelector('.js_favourites_list');
 const resetAllFav = document.querySelector('.js_reset_allfav');
+const buttonLog = document.querySelector('.js_log_button');
 
 // Arrays
 
@@ -16,6 +17,13 @@ let favourites = [];
 
 
 // FUNCIONES
+
+function handleClickLog(e) {
+  e.preventDefault();
+console.log(favourites.length);
+}
+
+buttonLog.addEventListener('click', handleClickLog);
 
 // Función que pinta la lista de favoritos
 function renderFavourites(){
@@ -88,7 +96,11 @@ function renderAnimes() {
     } else {
       html += `<img class="item-image" src="${oneAnime.images.jpg.image_url}">`;
     }
-    html += `<h3 class="item-title">${oneAnime.title}</h3></li>`;
+    html += `<h3 class="item-title">${oneAnime.title}</h3><h4>${oneAnime.score}</h4>`;
+    if (oneAnime.score > 7) {
+      html += `<h4>Recomendado</h4>`;
+    }
+    html += `</li>`;
   }
   ulAnimes.innerHTML = html;
   listenerFavourites();
@@ -124,13 +136,15 @@ function handleResetAllFav(event) {
 
 // Función manejadora del click en los botones de reset individuales (no he conseguido que funcione, pero he dejado el botón porque al pulsar se activa el splice anterior que hicimos en handleClickFavourites)
 function handleClickResetOne (e) {
- e.preventDefault;
-//   const resetOneSelectedId = parseInt(e.currentTarget.id);
-//   const resetOneSelectedIndex = favourites.findIndex((fav) => fav.mal_id === resetOneSelectedId);
-
-//   favourites.splice(resetOneSelectedIndex, 1);
-  
-//   renderFavourites();
+  e.preventDefault;
+ console.log(e.currentTarget.id);
+const resetOneSelectedId = parseInt(e.currentTarget.id);
+const resetOneSelectedIndex = favourites.findIndex((fav) => fav.mal_id === resetOneSelectedId);
+console.log(resetOneSelectedIndex);
+favourites.splice(resetOneSelectedIndex, 1);
+  console.log(favourites);
+  localStorage.setItem('data', JSON.stringify(favourites));
+renderFavourites();
 }
 
 // Función escuchadora de los botones de reset individuales
